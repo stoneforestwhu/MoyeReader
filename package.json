@@ -1,0 +1,29 @@
+{
+  "name": "moye-reader",
+  "productName": "墨页",
+  "version": "0.1.1",
+  "description": "墨页 · 专注阅读的 Windows EPUB 阅读器",
+  "author": "Moye",
+  "license": "MIT",
+  "private": true,
+  "main": "src/main.cjs",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "start": "npm run build && electron .",
+    "test": "node --test tests/*.test.mjs",
+    "test:pagination": "node scripts/test-pagination.mjs",
+    "pack": "npm run build && electron-builder --win dir",
+    "dist": "npm run build && electron-builder --win portable"
+  },
+  "dependencies": {"epubjs": "0.3.93", "jszip": "3.10.1"},
+  "overrides": {"@xmldom/xmldom": "0.8.15"},
+  "devDependencies": {"electron": "45.2.3", "electron-builder": "26.18.0", "esbuild": "0.28.2"},
+  "build": {
+    "appId": "com.moye.reader",
+    "asar": true,
+    "directories": {"output": "release"},
+    "files": ["src/main.cjs", "src/preload.cjs", "dist/**/*", "assets/**/*", "package.json"],
+    "win": {"target": "portable", "icon": "assets/icon.ico", "signAndEditExecutable": false, "artifactName": "Moye-Reader-${version}-${arch}.${ext}"},
+    "portable": {"splashImage": null}
+  }
+}
